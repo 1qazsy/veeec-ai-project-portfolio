@@ -7,57 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport"
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no, viewport-fit=cover" />
-    <title>请通过以下验证</title>
-    <style>
-        body {
-            margin: 0;
-        }
-
-        .title {
-            height: 18px;
-            margin: 15px;
-            font-size: 18px;
-            line-height: 18px;
-        }
-
-        #log {
-            display: none;
-            margin: 0;
-            word-break: break-all;
-        }
-
-        #log.log {
-            display: block;
-        }
-
-        #geetest_index_loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            overflow: hidden;
-            transform: translate(-50%, -50%);
-        }
-
-        #captcha {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 260px;
-            height: 50px;
-            transform: translate(-50%, -50%);
-        }
-
-        /* loading */
-        .loader {
-            width: 40px;
-            height: 40px;
-        }
-
-        svg path,
-        svg rect {
-            fill: #3973ff;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -202,7 +152,7 @@
                     // 错误信息中插入版本号
                     e.desc = Object.assign({}, e.desc, { indexVersion: indexVersion });
                     jsBridge.callNative({
-                        time: new Date().getTime(),
+                        // time: new Date().getTime(),
                         type: 'error',
                         data: e
                     });

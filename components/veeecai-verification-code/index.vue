@@ -45,60 +45,90 @@ export default {
   methods: {
     showCaptcha() {
       var that = this;
-      // #ifdef APP
+      // #ifdef APP-PLUS
+		
+		if(this.wv !== null){
+			// uni.showToast({
+			// 	title: 'show',
+			// 	icon: "none",
+			// 	duration: 2000,
+			// });
+			
+			this.wv.show();
+			return 
+			
+		}else{
+			// uni.showToast({
+			// 	title: 'create',
+			// 	icon: "none",
+			// 	duration: 2000,
+			// });
+			// 合并参数
+			_assign(this.defaultConfig, this.config, {
+			  challenge: this.getUuid(),
+			}); //每次更新challenge
+			
+			// 创建webview
+			this.wv = plus.webview.create(
+			  `hybrid/html/veeecai-verification-code/index.html?data=${encodeURIComponent(
+			    JSON.stringify(this.defaultConfig)
+			  )}`,
+			  "gt_webview",
+			  {
+			    background: "transparent",
+			    width: "100%", //String类型,窗口的宽度.支持百分比、像素值，默认为100%.未设置width属性值时,可同时设置left和right属性值改变窗口的默认宽度.
+			    height: "100%",
+			  }
+			);
+			
+			
+			// 获取webview
+			var currentWebview = this.$root.$scope.$getAppWebview(); //此对象相当于html5plus里的plus.webview.currentWebview()。在uni-app里vue页面直接使用plus.webview.currentWebview()无效
+			currentWebview.append(this.wv);
+			
+			plus.globalEvent.addEventListener("plusMessage", (msg) => {
+			  //有重复推送问题
+			  const result = msg.data.args.data;
+			  if (result.name == "postMessage") {
+			    if (result.arg.time  && result.arg.time === that.lastTime) {
 
-      // 合并参数
-      _assign(this.defaultConfig, this.config, {
-        challenge: this.getUuid(),
-      }); //每次更新challenge
+				
+			      // 处理uni连续推送bug
+			      return;
+			    }
+			    that.lastTime = result.arg.time;
+			    switch (result.arg.type) {
+					
+			      case "close":
+					
+			        that.captchaClose();
+			        break;
+			      case "success":
+						// uni.showToast({
+						// 	title: 'success',
+						// 	icon: "none",
+						// 	duration: 2000,
+						// });
+			        that.captchaSuccess(result.arg.data);
+			        break;
+			      default:
+			        break;
+			    }
+			  }
+			});
+		}
+		
+     
 
-      // 创建webview
-      this.wv = plus.webview.create(
-        `hybrid/html/veeecai-verification-code/index.html?data=${encodeURIComponent(
-          JSON.stringify(this.defaultConfig)
-        )}`,
-        "gt_webview",
-        {
-          background: "transparent",
-          width: "100%", //String类型,窗口的宽度.支持百分比、像素值，默认为100%.未设置width属性值时,可同时设置left和right属性值改变窗口的默认宽度.
-          height: "100%",
-        }
-      );
-
-      // 获取webview
-      var currentWebview = this.$root.$scope.$getAppWebview(); //此对象相当于html5plus里的plus.webview.currentWebview()。在uni-app里vue页面直接使用plus.webview.currentWebview()无效
-      currentWebview.append(this.wv);
-
-      plus.globalEvent.addEventListener("plusMessage", (msg) => {
-        //有重复推送问题
-        const result = msg.data.args.data;
-        if (result.name == "postMessage") {
-          if (result.arg.time === that.lastTime) {
-            // 处理uni连续推送bug
-            return;
-          }
-          that.lastTime = result.arg.time;
-          switch (result.arg.type) {
-            case "close":
-              that.captchaClose();
-              break;
-            case "success":
-              that.captchaSuccess(result.arg.data);
-              break;
-            default:
-              break;
-          }
-        }
-      });
-
-      this.wv.overrideUrlLoading(
-        {
-          mode: "reject",
-        },
-        (e) => {
-          plus.runtime.openURL(e.url);
-        }
-      );
+      // this.wv.overrideUrlLoading(
+      //   {
+      //     mode: "reject",
+      //   },
+      //   (e) => {
+      //     plus.runtime.openURL(e.url);
+      //   }
+      // );
+	  
       // #endif
     },
 
@@ -152,4 +182,6 @@ function _assign(target) {
   return newTarget;
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+	
+</style>

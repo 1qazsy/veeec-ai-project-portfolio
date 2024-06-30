@@ -6,7 +6,7 @@
 		<div id="captcha"></div>
 		<!-- #endif -->
 
-		<!-- #ifdef APP  -->
+		<!-- #ifdef APP-PLUS  -->
 		<button class="btn-submit" @click="btnSubmit">APP Click Me</button>
 		<captcha ref="captcha" :config="config" @captchaSuccess="captchaSuccess" @captchaClose="captchaClose"></captcha>
 		<!-- #endif -->
@@ -52,11 +52,12 @@
 				console.log(result)
 			},
 			captchaClose() { // app端的回调
-				uni.showToast({
-					title: 'captchaClose',
-					icon: "none",
-					duration: 2000,
-				});
+				
+				// uni.showToast({
+				// 	title: 'captchaClose',
+				// 	icon: "none",
+				// 	duration: 2000,
+				// });
 			},
 			btnSubmit: function() { // app端bind模式唤醒验证码的方法
 				this.$refs.captcha.showCaptcha();
@@ -69,6 +70,11 @@
 	.container {
 		#captcha {
 			margin-top: 20px;
+		}
+		
+		
+		.btn-submit {
+			margin-top: 200rpx;
 		}
 	}
 </style>
