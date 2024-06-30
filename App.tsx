@@ -12,7 +12,7 @@ const App = () => {
   };
 
   const sources = 'https://www.zsy96115.top/verification-code/index.html?veeec-ai-config=' +
-    encodeURIComponent(`{"captchaId":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
+    encodeURIComponent(`{"VeeecAiverificationCodeKey":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
 
   const webViewOnLoad = (syntheticEvent: any) => {
     const { nativeEvent } = syntheticEvent;
