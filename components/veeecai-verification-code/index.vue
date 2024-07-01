@@ -48,13 +48,14 @@ export default {
       // #ifdef APP-PLUS
 		
 		if(this.wv !== null){
-			// uni.showToast({
-			// 	title: 'show',
-			// 	icon: "none",
-			// 	duration: 2000,
-			// });
+			uni.showToast({
+				title: 'show',
+				icon: "none",
+				duration: 2000,
+			});
 			
 			this.wv.show();
+			
 			return 
 			
 		}else{
@@ -78,6 +79,7 @@ export default {
 			    background: "transparent",
 			    width: "100%", //String类型,窗口的宽度.支持百分比、像素值，默认为100%.未设置width属性值时,可同时设置left和right属性值改变窗口的默认宽度.
 			    height: "100%",
+				marginTop:'100rpx'
 			  }
 			);
 			

@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport"
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no, viewport-fit=cover" />
-    
+
 </head>
 
 <body>
@@ -232,21 +232,26 @@
             mergeOptions(args);
 
             // 初始化验证码
-            window.VecccaiAiVerificationCode.init({
+            window.VecAICaptcha({
                 onSuccess: (data) => {
                     jsBridge.callNative({
                         type: 'success',
                         data: 'OK'
                     });
+					window.VecAICaptcha['veeecai-verification-code'].show()
                 },
                 onClose: (data) => {
                     jsBridge.callNative({
                         type: 'close',
                         data: 'OK'
                     });
+					window.VecAICaptcha['veeecai-verification-code'].show()
                 },
-                dom: false, // 自定义挂载元素： 传入ID即可，不需要携带"#" 
+                dom: 'veeecai-verification-code', // 自定义挂载元素： 传入ID即可，不需要携带"#" 
             });
+			
+			// 展示
+            window.VecAICaptcha['veeecai-verification-code'].show()
 
         })();
 

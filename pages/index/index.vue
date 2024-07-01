@@ -30,7 +30,18 @@
 			// #ifdef  H5
 			var script = document.createElement('script');
 			script.src = "https://www.zsy96115.top/verification-code/sdk/veeeci-ai.js";
-			document.body.appendChild(script);
+			document.body.appendChild(script)
+			script.onload = script.onreadystatechange = function() {
+				window.VecAICaptcha({
+					onSuccess: (data) => {
+
+					},
+					onClose: (data) => {
+
+					},
+					dom: 'myOneTexxxst', // 自定义挂载元素： 传入ID即可，不需要携带"#" 
+				});
+			};
 			// #endif
 		},
 		components: {
@@ -38,21 +49,13 @@
 		},
 		methods: {
 			myclick() {
-				window.VecccaiAiVerificationCode.init({
-					onSuccess: (data) => {
-						window.VecccaiAiVerificationCode.hide()
-					},
-					onClose: (data) => {
-						window.VecccaiAiVerificationCode.hide()
-					},
-					dom: 'captcha',
-				});
+				window.VecAICaptcha['myOneTexxxst'].show();
 			},
 			captchaSuccess(result) { // app端的回调
 				console.log(result)
 			},
 			captchaClose() { // app端的回调
-				
+
 				// uni.showToast({
 				// 	title: 'captchaClose',
 				// 	icon: "none",
@@ -71,8 +74,8 @@
 		#captcha {
 			margin-top: 20px;
 		}
-		
-		
+
+
 		.btn-submit {
 			margin-top: 200rpx;
 		}
