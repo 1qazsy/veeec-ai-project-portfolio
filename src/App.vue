@@ -10,10 +10,10 @@ export default {
   mounted() {
     window.VecAICaptcha({
       onSuccess: (data) => {
-        window.VecAICaptcha['myOneTestVue'].hide();
+
       },
       onClose: (data) => {
-        window.VecAICaptcha['myOneTestVue'].hide();
+
       },
       dom: 'myOneTestVue', // 自定义挂载元素： 传入ID即可，不需要携带"#" 
     });
