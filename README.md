@@ -25,24 +25,24 @@ yarn/npm run start
 <script>
 export default {
   name: 'App',
+  mounted() {
+    window.VecAICaptcha({
+      onSuccess: (data) => {
+        window.VecAICaptcha['myOneTestVue'].hide();
+      },
+      onClose: (data) => {
+        window.VecAICaptcha['myOneTestVue'].hide();
+      },
+      dom: 'myOneTestVue', // 自定义挂载元素： 传入ID即可，不需要携带"#" 
+    });
+  },
   methods: {
     handleClick() {
-      if (typeof window !== 'undefined' && window.VecccaiAiVerificationCode) {
-        window.VecccaiAiVerificationCode.init({
-          onSuccess: (data) => {
-            window.VecccaiAiVerificationCode.hide()
-          },
-          onClose: (data) => {
-            window.VecccaiAiVerificationCode.hide()
-          },
-          dom: false,
-        });
-      }
+      window.VecAICaptcha['myOneTestVue'].show();
     }
-  },
+  }
 }
 </script>
 
 <style></style>
-
 ```
