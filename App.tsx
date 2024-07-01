@@ -11,7 +11,7 @@ const App = () => {
     setShow(false)
   };
 
-  const sources = 'https://www.zsy96115.top/verification-code/index.html?veeec-ai-config=' +
+  const sources = 'http://localhost:8081/assets/demo.html?veeec-ai-config=' +
     encodeURIComponent(`{"VeeecAiverificationCodeKey":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
 
   const webViewOnLoad = (syntheticEvent: any) => {
@@ -30,7 +30,6 @@ const App = () => {
         break;
       case 'close':
         setShow(false)
-        webref.current.injectJavaScript(`window.VecccaiAiVerificationCode.hide()`)
         break;
     }
   };
@@ -44,14 +43,15 @@ const App = () => {
           color="#f194ff"
           onPress={() => {
             setShow(true)
-            webref.current.injectJavaScript(`window.VecccaiAiVerificationCode.show()`)
           }}
         />
       }
 
 
-      <View style={{ width: '100%', height: '100%' }}>
+      <View style={{ width: '100%', height: '100%' }} >
         <WebView
+          style={{ opacity: show ? 1 : 0 }}
+          pointerEvents={show ? 'auto' : 'none'}
           ref={webref}
           allowFileAccess={true}
           source={{ uri: sources }}
