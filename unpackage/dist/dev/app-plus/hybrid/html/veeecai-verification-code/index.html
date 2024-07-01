@@ -238,16 +238,15 @@
                         type: 'success',
                         data: 'OK'
                     });
-					window.VecAICaptcha['veeecai-verification-code'].show()
                 },
                 onClose: (data) => {
                     jsBridge.callNative({
                         type: 'close',
                         data: 'OK'
                     });
-					window.VecAICaptcha['veeecai-verification-code'].show()
                 },
                 dom: 'veeecai-verification-code', // 自定义挂载元素： 传入ID即可，不需要携带"#" 
+                isNohide: true
             });
 			
 			// 展示
