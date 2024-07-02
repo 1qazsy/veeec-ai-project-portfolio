@@ -11,7 +11,7 @@ const Index = () => {
     setShow(false)
   };
 
-  const sources = 'http://localhost:8081/assets/demo.html?veeec-ai-config=' +
+  const sources = 'http://localhost:8081/assets/index.html?veeec-ai-config=' +
     encodeURIComponent(`{"VeeecAiverificationCodeKey":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
 
   const webViewOnLoad = (syntheticEvent: any) => {
@@ -45,10 +45,11 @@ const Index = () => {
       />
 
       {/* 自定义位置 */}
-      <View style={{ width: '100%', height: 235, backgroundColor: '', marginTop: 10, opacity: show ? 1 : 0, }} pointerEvents={show ? 'auto' : 'none'}>
+      <View style={{ width: '100%', height: 235, marginTop: 10, opacity: show ? 1 : 0 }} pointerEvents={show ? 'auto' : 'none'}>
         <WebView
           style={{
-            opacity: show ? 1 : 0, height: 300,  // 设置高度
+            opacity: show ? 1 : 0,// 设置高度
+            backgroundColor: 'red'
           }}
           pointerEvents={show ? 'auto' : 'none'}
           ref={webref}
