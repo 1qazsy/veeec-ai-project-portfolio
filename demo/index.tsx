@@ -36,26 +36,25 @@ const Index = () => {
 
   return (
     <View style={styles.sectionContainer}>
-      {
+      <Button
+        title="Click me"
+        color="#f194ff"
+        onPress={() => {
+          setShow(true)
+        }}
+      />
 
-        !show && <Button
-          title="Click me"
-          color="#f194ff"
-          onPress={() => {
-            setShow(true)
-          }}
-        />
-      }
-
-
-      <View style={{ width: '100%', height: '100%' }} >
+      {/* 自定义位置 */}
+      <View style={{ width: '100%', height: 235, backgroundColor: '', marginTop: 10, opacity: show ? 1 : 0, }} pointerEvents={show ? 'auto' : 'none'}>
         <WebView
-          style={{ opacity: show ? 1 : 0 }}
+          style={{
+            opacity: show ? 1 : 0, height: 300,  // 设置高度
+          }}
           pointerEvents={show ? 'auto' : 'none'}
           ref={webref}
           allowFileAccess={true}
           source={{ uri: sources }}
-          onLoad={webViewOnLoad}
+          onLoad={webViewOnLoad} s
           originWhitelist={['*']}
           automaticallyAdjustContentInsets={false}
           onMessage={handleMessage}
@@ -64,6 +63,11 @@ const Index = () => {
           useWebKit={true}
         />
       </View>
+
+      {/* 默认位置 */}
+
+
+
     </View>
   );
 };
