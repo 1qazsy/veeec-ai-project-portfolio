@@ -248,7 +248,7 @@
       mergeOptions(args);
 
       // 初始化实例
-      window.AICaptchaSelf.current = new Captca({
+      window.AICaptchadefault.current = new Captca({
         onSuccess: (data) => {
           jsBridge.callNative({
             type: 'success',
@@ -262,7 +262,7 @@
           });
         },
         isNohide: true,
-        key: 'react-native-key',// 必传
+        key: 'react-native-key-default',// 必传
         style: {
           backgroundColor: 'rgba(153, 153, 153,.5)',
           top: '0px',
