@@ -19,9 +19,6 @@ const Index = () => {
   const sources = 'http://localhost:8081/assets/index.html?veeec-ai-config=' +
     encodeURIComponent(`{"VeeecAiverificationCodeKey":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
 
-  const defaultsources = 'http://localhost:8081/assets/index.html?veeec-ai-config=' +
-    encodeURIComponent(`{"VeeecAiverificationCodeKey":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
-
   const webViewOnLoad = (syntheticEvent: any) => {
     const { nativeEvent } = syntheticEvent;
     const curl = nativeEvent.url;
@@ -92,7 +89,7 @@ const Index = () => {
           pointerEvents={defalutPsnshow ? 'auto' : 'none'}
           ref={webrefDefault}
           allowFileAccess={true}
-          source={{ uri: defaultsources }}
+          source={{ uri: sources }}
           onLoad={webViewOnLoad}
           originWhitelist={['*']}
           automaticallyAdjustContentInsets={false}
