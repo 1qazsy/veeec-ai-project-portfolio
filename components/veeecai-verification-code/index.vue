@@ -59,11 +59,11 @@ export default {
 			return 
 			
 		}else{
-			// uni.showToast({
-			// 	title: 'create',
-			// 	icon: "none",
-			// 	duration: 2000,
-			// });
+			uni.showToast({
+				title: 'create',
+				icon: "none",
+				duration: 2000,
+			});
 			// 合并参数
 			_assign(this.defaultConfig, this.config, {
 			  challenge: this.getUuid(),
@@ -79,10 +79,9 @@ export default {
 			    background: "transparent",
 			    width: "100%", //String类型,窗口的宽度.支持百分比、像素值，默认为100%.未设置width属性值时,可同时设置left和right属性值改变窗口的默认宽度.
 			    height: "100%",
-				marginTop:'100rpx'
+				marginTop:'200px'
 			  }
 			);
-			
 			
 			// 获取webview
 			var currentWebview = this.$root.$scope.$getAppWebview(); //此对象相当于html5plus里的plus.webview.currentWebview()。在uni-app里vue页面直接使用plus.webview.currentWebview()无效

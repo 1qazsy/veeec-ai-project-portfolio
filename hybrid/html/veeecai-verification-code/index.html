@@ -99,7 +99,7 @@
     </script>
 
     <!-- 此链接位置不要改变，防止上面页面错误catch 不到gt4的错误-->
-    <script src="https://www.zsy96115.top/verification-code/sdk/veeeci-ai.js"></script>
+    <script src="https://www.zsy96115.top/js-sdk/captch/veeeci-ai.js"></script>
     <script src="./uni.webview.1.5.1.js"></script>
     <script>
         (function () {
@@ -231,27 +231,28 @@
             // 合并配置项
             mergeOptions(args);
 
-            // 初始化验证码
-            window.VecAICaptcha({
-                onSuccess: (data) => {
-                    jsBridge.callNative({
-                        type: 'success',
-                        data: 'OK'
-                    });
-                },
-                onClose: (data) => {
-                    jsBridge.callNative({
-                        type: 'close',
-                        data: 'OK'
-                    });
-                },
-                dom: 'veeecai-verification-code', // 自定义挂载元素： 传入ID即可，不需要携带"#" 
-                isNohide: true
-            });
-			
-			// 展示
-            window.VecAICaptcha['veeecai-verification-code'].show()
-
+            // 初始化实例
+			window.AICaptcha.current = new Captca({
+				onSuccess: (data) => {
+					jsBridge.callNative({
+						type: 'success',
+						data: 'OK'
+					});
+				},
+				onClose: (data) => {
+					jsBridge.callNative({
+						type: 'close',
+						data: 'OK'
+					});
+				},
+				isNohide: true,
+				key: 'uniapp-key',// 必传
+				position: 'center',
+				style: {
+					backgroundColor: 'rgba(153, 153, 153,.5)',
+					borderRadius: '5px',
+				}
+			});
         })();
 
     </script>
