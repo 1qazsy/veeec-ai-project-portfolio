@@ -19,7 +19,7 @@ const Index = () => {
   const sources = 'http://localhost:8081/assets/index.html?veeec-ai-config=' +
     encodeURIComponent(`{"VeeecAiverificationCodeKey":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
 
-  const defaultsources = 'http://localhost:8081/assets/default.html?veeec-ai-config=' +
+  const defaultsources = 'http://localhost:8081/assets/index.html?veeec-ai-config=' +
     encodeURIComponent(`{"VeeecAiverificationCodeKey":"xxxxxxxxxxxxxxxx","protocol":"https://", "type":"WebView"}`);
 
   const webViewOnLoad = (syntheticEvent: any) => {

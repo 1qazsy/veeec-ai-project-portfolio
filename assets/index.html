@@ -248,7 +248,7 @@
       mergeOptions(args);
 
       // 初始化实例
-      window.AICaptchaSelf.current = new Captca({
+      window.AICaptcha.current = new Captca({
         onSuccess: (data) => {
           jsBridge.callNative({
             type: 'success',
