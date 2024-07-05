@@ -1,4 +1,4 @@
-group 'com.geetest.captcha.flutter.gt4_flutter_plugin'
+group 'com.geetest.captcha.flutter.flutter_plugin'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -19,7 +19,7 @@ rootProject.allprojects {
         google()
         mavenCentral()
         flatDir {
-            dirs project(':gt4_flutter_plugin').file('libs')
+            dirs project(':flutter_plugin').file('libs')
         }
     }
 }
