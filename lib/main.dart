@@ -6,6 +6,8 @@ void main() {
   runApp(MyApp());
 }
 
+
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class WebViewExample extends StatefulWidget {
 
 class _WebViewExampleState extends State<WebViewExample> {
   late final WebViewController controller;
+
   final encodedConfig = Uri.encodeComponent(jsonEncode({
     'key': 'value',
     'anotherKey': 'anotherValue',
@@ -39,20 +42,11 @@ class _WebViewExampleState extends State<WebViewExample> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
+          onProgress: (int progress) {},
+          onPageStarted: (String url)  {},
           onPageFinished: (String url) {},
           onHttpError: (HttpResponseError error) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              return NavigationDecision.prevent;
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
+          onWebResourceError: (WebResourceError error) {},)
       )
       ..loadRequest(Uri.parse('file:///android_asset/flutter_assets/assets/index.html?data=$encodedConfig'));
   }

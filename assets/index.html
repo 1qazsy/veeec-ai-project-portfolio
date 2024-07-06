@@ -3,17 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flutter WebView Example</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no, viewport-fit=cover" />
     <style>
         body {
           margin: 0;
           padding: 0;
-        }
-        img {
-          display: block;
-          max-width: 100%;
-          height: auto;
         }
     </style>
 </head>
@@ -241,11 +238,15 @@
 					});
 				},
 				isNohide: true,
-				key: 'flxxxutter-key',// 必传
-				position: 'center',
+				key: 'flxxxutter-key2',// 必传
+				confirmPosition: 'bottom',
 				style: {
-					backgroundColor: 'rgba(153, 153, 153,.5)',
 					borderRadius: '5px',
+					backgroundColor: 'transparent',
+                    width: '100vw',
+                    height: '300px',
+                    marginTop:'30px',
+                    color:'#000',
 				}
 			});
         })();
