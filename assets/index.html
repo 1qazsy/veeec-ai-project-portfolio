@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,244 +13,210 @@
         }
     </style>
 </head>
-
 <body>
-    <div id="log"></div>
-    <div id="captcha"></div>
-    <script src="https://www.zsy96115.top/js-sdk/captch/veeeci-ai.js"></script>
-
-    <script>
-        var debug = false;
-        var logEle = document.getElementById('log');
-        var isOffline = false;
-        var indexVersion = '1.0.0'; // 中间页版本号，每次修改文件要进行版本号升级
-        function log(str) {
-            if (!debug) {
-                return;
-            }
-            var p = document.createElement('p');
-            p.appendChild(document.createTextNode(str));
-            logEle.insertBefore(p, logEle.firstChild);
-            // 同时将错误输出到控制台
-            console.log(str);
+<div id="log"></div>
+<div id="captcha"></div>
+<script src="https://www.zsy96115.top/js-sdk/captch/veeeci-ai.js"></script>
+<script>
+    document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+    var debug = false;
+    var logEle = document.getElementById('log');
+    var isOffline = false;
+    var indexVersion = '1.0.0'; // 中间页版本号，每次修改文件要进行版本号升级
+    function log(str) {
+        if (!debug) {
+            return;
         }
-        // 错误构造函数
-        function newError(msg, code, detail) {
-            return {
-                desc: {
-                    indexVersion: indexVersion,
-                    detail: detail
-                },
-                msg: msg,
-                code: code
-            }
+        var p = document.createElement('p');
+        p.appendChild(document.createTextNode(str));
+        logEle.insertBefore(p, logEle.firstChild);
+        // 同时将错误输出到控制台
+        console.log(str);
+    }
+    // 错误构造函数
+    function newError(msg, code, detail) {
+        return {
+            desc: {
+                indexVersion: indexVersion,
+                detail: detail
+            },
+            msg: msg,
+            code: code
         }
-        var plusReady = function (callback) {
-            if (window.plus) {
-                callback();
-            } else {
-                document.addEventListener('plusready', callback);
-            }
-        };
-        (function () {
-
-
-            var jsBridge = (function () {
-
-                var callbacks = {
-                    showBox: function () {
-                        captchaObj.showBox && captchaObj.showBox();
-                    }
-
-                };
-
-
-                return {
-                    callback: function (type, data) {
-                        return callbacks[type](data);
-                    },
-                    callNative: function (data) {
-                        plusReady(function () {
-
-                        });
-
-                    }
+    }
+    var plusReady = function (callback) {
+        if (window.plus) {
+            callback();
+        } else {
+            document.addEventListener('plusready', callback);
+        }
+    };
+    (function () {
+        var jsBridge = (function () {
+            var callbacks = {
+                showBox: function () {
+                    captchaObj.showBox && captchaObj.showBox();
                 }
-            })();
-            // 暴露 jsBridge
-            window.jsBridge = jsBridge;
-            // jsBridge 与 全局全局错误捕获要尽可能早的加载，防止gt4中的错误捕获不到；
-            if (window.addEventListener) {
-                window.addEventListener('error', function (e) {
-                    jsBridge.callNative({
-                        type: 'error',
-                        data: newError(`Veeecai-Verification Version: ${'0.0.1-test'} `, 39563, e.message)
-                    });
-                })
-            } else {
-                window.onerror = function (e) {
-                    jsBridge.callNative({
-                        type: 'error',
-                        data: newError(`Veeecai-Verification Version: ${'0.0.1-test'} `, 39563, e.message)
-                    });
+            };
+            return {
+                callback: function (type, data) {
+                    return callbacks[type](data);
+                },
+                callNative: function (data) {
+                    plusReady(function () {});
                 }
             }
         })();
-    </script>
+        // 暴露 jsBridge
+        window.jsBridge = jsBridge;
+        // jsBridge 与 全局全局错误捕获要尽可能早的加载，防止gt4中的错误捕获不到；
+        if (window.addEventListener) {
+            window.addEventListener('error', function (e) {
+                jsBridge.callNative({
+                    type: 'error',
+                    data: newError(`Veeecai-Verification Version: ${'0.0.1-test'} `, 39563, e.message)
+                });
+            })
+        } else {
+            window.onerror = function (e) {
+                jsBridge.callNative({
+                    type: 'error',
+                    data: newError(`Veeecai-Verification Version: ${'0.0.1-test'} `, 39563, e.message)
+                });
+            }
+        }
+    })();
+</script>
+<script>
+    (function () {
+        var startTime = 0;
+        var clearID = 0;
+        var captcha = document.getElementById('captcha');
+        var query = location.href.split('?')[1];
+        // 兼容安卓4.3版本样式问题
+        var ua = navigator.userAgent.toLowerCase();
 
-    <script>
-        (function () {
-            var startTime = 0;
-            var clearID = 0;
-            var captcha = document.getElementById('captcha');
-            var query = location.href.split('?')[1];
-            // 兼容安卓4.3版本样式问题
-            var ua = navigator.userAgent.toLowerCase();
-
-            // 兼容低版本Object.assign
-            if (typeof Object.assign != 'function') {
-                // Must be writable: true, enumerable: false, configurable: true
-                Object.defineProperty(Object, "assign", {
-                    value: function assign(target, varArgs) { // .length of function is 2
-                        if (target == null) { // TypeError if undefined or null
-                            throw new TypeError('Cannot convert undefined or null to object');
-                        }
-
-                        var to = Object(target);
-
-                        for (var index = 1; index < arguments.length; index++) {
-                            var nextSource = arguments[index];
-
-                            if (nextSource != null) { // Skip over if undefined or null
-                                for (var nextKey in nextSource) {
-                                    // Avoid bugs when hasOwnProperty is shadowed
-                                    if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-                                        to[nextKey] = nextSource[nextKey];
-                                    }
+        // 兼容低版本Object.assign
+        if (typeof Object.assign != 'function') {
+            // Must be writable: true, enumerable: false, configurable: true
+            Object.defineProperty(Object, "assign", {
+                value: function assign(target, varArgs) { // .length of function is 2
+                    if (target == null) { // TypeError if undefined or null
+                        throw new TypeError('Cannot convert undefined or null to object');
+                    }
+                    var to = Object(target);
+                    for (var index = 1; index < arguments.length; index++) {
+                        var nextSource = arguments[index];
+                        if (nextSource != null) { // Skip over if undefined or null
+                            for (var nextKey in nextSource) {
+                                // Avoid bugs when hasOwnProperty is shadowed
+                                if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                                    to[nextKey] = nextSource[nextKey];
                                 }
                             }
                         }
-                        return to;
-                    },
-                    writable: true,
-                    configurable: true
+                    }
+                    return to;
+                },
+                writable: true,
+                configurable: true
+            });
+        }
+        // 默认配置
+        var config = {
+            product: 'bind',
+            onError: function (e) {
+                // 错误信息中插入版本号
+                e.desc = Object.assign({}, e.desc, { indexVersion: indexVersion });
+                jsBridge.callNative({
+                    // time: new Date().getTime(),
+                    type: 'error',
+                    data: e
                 });
             }
-            // 默认配置
-            var config = {
-                product: 'bind',
-                onError: function (e) {
-                    // 错误信息中插入版本号
-                    e.desc = Object.assign({}, e.desc, { indexVersion: indexVersion });
+        };
+        function setDebug() {
+            debug = true;
+            logEle.className = 'log';
+        }
+        function paseURI() {
+            console.log(decodeURIComponent(query.split('=')[1]), 'xxx')
+            return JSON.parse(decodeURIComponent(query.split('=')[1]));
+        }
+        function checkArgs(args) {
+            // 是否开启debug
+            if (args['debug']) {
+                setDebug(true);
+                startTime = (new Date()).getTime();
+                log(JSON.stringify(args))
+            }
+            // 设置title
+            if (args['title'] && args['title'] != "") {
+                var h3 = document.createElement('h3');
+                h3.className = 'title';
+                h3.appendChild(document.createTextNode(decodeURIComponent(args['title'])));
+                captcha.appendChild(h3);
+            }
+            // 检查必要参数
+            if (!args['captchaId']) {
+                log('args error: ' + query);
+            }
+            // 通过useLocalOffline判断是否会加入宕机效验
+            if (args['useLocalOffline']) {
+                //宕机启用自己的方法
+                config.offlineCb = function () {
+                    isOffline = true;
                     jsBridge.callNative({
-                        // time: new Date().getTime(),
-                        type: 'error',
-                        data: e
+                        type: 'result',
+                        data: {
+                            captcha_id: args['captchaId'],
+                            challenge: args['challenge'],
+                            offline: true
+                        }
                     });
                 }
-            };
-            function setDebug() {
-                debug = true;
-                logEle.className = 'log';
             }
-
-            function paseURI() {
-                console.log(decodeURIComponent(query.split('=')[1]), 'xxx')
-                return JSON.parse(decodeURIComponent(query.split('=')[1]));
-            }
-            function checkArgs(args) {
-                // 是否开启debug
-                if (args['debug']) {
-                    setDebug(true);
-                    startTime = (new Date()).getTime();
-                    log(JSON.stringify(args))
-                }
-
-                // 设置title
-                if (args['title'] && args['title'] != "") {
-                    var h3 = document.createElement('h3');
-                    h3.className = 'title';
-                    h3.appendChild(document.createTextNode(decodeURIComponent(args['title'])));
-                    captcha.appendChild(h3);
-                }
-
-                // 检查必要参数
-                if (!args['captchaId']) {
-                    log('args error: ' + query);
-                }
-
-                // 通过useLocalOffline判断是否会加入宕机效验
-                if (args['useLocalOffline']) {
-                    //宕机启用自己的方法
-                    config.offlineCb = function () {
-
-                        isOffline = true;
-
-                        jsBridge.callNative({
-                            type: 'result',
-                            data: {
-                                captcha_id: args['captchaId'],
-                                challenge: args['challenge'],
-                                offline: true
-                            }
-                        });
-                    }
+        }
+        function mergeOptions(args) {
+            for (var k in args) {
+                if (args.hasOwnProperty(k) &&
+                    ['debug', 'title', args['type']].indexOf(k) === -1) {
+                    config[k] = args[k];
                 }
             }
-
-            function mergeOptions(args) {
-                for (var k in args) {
-                    if (args.hasOwnProperty(k) &&
-                        ['debug', 'title', args['type']].indexOf(k) === -1) {
-                        config[k] = args[k];
-                    }
-                }
+        }
+        if (!query) {
+            setDebug();
+            log('no query: ' + location.href);
+            return false;
+        }
+        // 解析参数
+        var args = paseURI(query);
+        // 检查参数
+        checkArgs(args);
+        // 合并配置项
+        mergeOptions(args);
+        // 初始化实例
+        window.AICaptcha = new Captca({
+             onSuccess: data => {
+             window.postMessage.postMessage(JSON.stringify({type: 'success', data: 'some data'}));
+            },
+            onClose: data => {
+            window.postMessage.postMessage(JSON.stringify({type: 'close', data: 'some data'}));
+            },
+            isNohide: true,
+            key: 'flxxxutter-key2',// 必传
+            confirmPosition: 'bottom',
+            style: {
+                borderRadius: '5px',
+                backgroundColor: 'transparent',
+                width:'100vw',
+                height:'300px',
+                marginTop:'30px',
+                color:'#000',
             }
-
-            if (!query) {
-                setDebug();
-                log('no query: ' + location.href);
-                return false;
-            }
-
-            // 解析参数
-            var args = paseURI(query);
-
-            // 检查参数
-            checkArgs(args);
-
-            // 合并配置项
-            mergeOptions(args);
-
-            // 初始化实例
-			window.AICaptcha = new Captca({
-				onSuccess: (data) => {
-					jsBridge.callNative({
-						type: 'success',
-						data: 'OK'
-					});
-				},
-				onClose: (data) => {
-					jsBridge.callNative({
-						type: 'close',
-						data: 'OK'
-					});
-				},
-				isNohide: true,
-				key: 'flxxxutter-key2',// 必传
-				confirmPosition: 'bottom',
-				style: {
-					borderRadius: '5px',
-					backgroundColor: 'transparent',
-                    width: '100vw',
-                    height: '300px',
-                    marginTop:'30px',
-                    color:'#000',
-				}
-			});
-        })();
-
-    </script>
+        });
+    })();
+</script>
 </body>
-
 </html>
